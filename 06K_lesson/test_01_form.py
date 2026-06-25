@@ -4,15 +4,17 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.color import Color
 
-driver = webdriver.Edge()
-wait = WebDriverWait(driver, 10)
-
 
 def test_form():
+    driver = webdriver.Edge()
+    wait = WebDriverWait(driver, 10)
+
     # Откройте страницу:
     # https://bonigarcia.dev/selenium-webdriver-java/data-types.html
     # в Edge или Safari.
-    driver.get("https://bonigarcia.dev/selenium-webdriver-java/data-types.html")
+    driver.get(
+        "https://bonigarcia.dev/selenium-webdriver-java/data-types.html"
+    )
 
     # Заполните форму значениями:
     values = {
@@ -40,6 +42,11 @@ def test_form():
     )
     button.click()
 
+    wait.until(
+        EC.visibility_of_element_located(
+            (By.CSS_SELECTOR, '#zip-code.alert-danger')
+        )
+    )
     # Проверьте (assert), что поле Zip code подсвечено красным.
     # Проверьте (assert), что остальные поля подсвечены зеленым.
     for id in values.keys():
@@ -47,7 +54,8 @@ def test_form():
         back_color = form.value_of_css_property("background-color")
         hex_color = Color.from_string(back_color).hex
         if id == "zip-code":
-            assert hex_color == "#f8d7da", "Поле Zip code не подсвечено красным"
+            assert hex_color == "#f8d7da", \
+                "Поле Zip code не подсвечено красным"
         else:
             assert hex_color == "#d1e7dd", f"Поле {id} не подсвечено зеленым"
 

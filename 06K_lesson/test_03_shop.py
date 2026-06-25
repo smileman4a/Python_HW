@@ -12,7 +12,9 @@ def test_buy_stuff():
     driver.maximize_window()
 
     # Авторизуйтесь как пользователь standard_user.
-    user_field = wait.until(EC.presence_of_element_located((By.ID, "user-name")))
+    user_field = wait.until(
+        EC.presence_of_element_located((By.ID, "user-name"))
+    )
     user_field.send_keys("standard_user")
     driver.find_element(By.ID, "password").send_keys("secret_sauce")
     driver.find_element(By.ID, "login-button").click()
@@ -32,7 +34,9 @@ def test_buy_stuff():
     ).click()
 
     # Перейдите в корзину.
-    driver.find_element(By.CSS_SELECTOR, "[data-test='shopping-cart-link']").click()
+    driver.find_element(
+        By.CSS_SELECTOR, "[data-test='shopping-cart-link']"
+    ).click()
 
     # Нажмите Checkout.
     wait.until(
@@ -42,22 +46,30 @@ def test_buy_stuff():
     # Заполните форму своими данными:
     # имя
     wait.until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, "[data-test='firstName']"))
+        EC.presence_of_element_located(
+            (By.CSS_SELECTOR, "[data-test='firstName']")
+        )
     ).send_keys("Тестимя")
     # фамилия
     wait.until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, "[data-test='lastName']"))
+        EC.presence_of_element_located(
+            (By.CSS_SELECTOR, "[data-test='lastName']")
+        )
     ).send_keys("Тестфамилия")
     # почтовый индекс
     wait.until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, "[data-test='postalCode']"))
+        EC.presence_of_element_located(
+            (By.CSS_SELECTOR, "[data-test='postalCode']")
+        )
     ).send_keys("123456")
 
     # Нажмите кнопку Continue.
     driver.find_element(By.CSS_SELECTOR, "[data-test='continue']").click()
 
     # Прочитайте со страницы итоговую стоимость (Total).
-    total_cost = driver.find_element(By.CSS_SELECTOR, "[data-test='total-label']").text
+    total_cost = wait.until(EC.visibility_of_element_located(
+        (By.CSS_SELECTOR, "[data-test='total-label']")
+    )).text
 
     # Закройте браузер.
     driver.quit()

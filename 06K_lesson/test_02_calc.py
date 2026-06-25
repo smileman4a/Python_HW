@@ -11,7 +11,9 @@ def test_calculator():
     # Откройте страницу:
     # https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html
     # в Google Chrome.
-    driver.get("https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html")
+    driver.get(
+        "https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html"
+    )
 
     # В поле ввода по локатору #delay введите значение 45.
     delay_field = wait.until(EC.presence_of_element_located((By.ID, "delay")))
@@ -21,7 +23,9 @@ def test_calculator():
     # Нажмите на кнопки: '7', '+', '8', '='
     keys_container = driver.find_element(By.CSS_SELECTOR, "div.keys")
     for ky in "7+8=":
-        keys_container.find_element(By.XPATH, f".//span[text()='{ky}']").click()
+        keys_container.find_element(
+            By.XPATH, f".//span[text()='{ky}']"
+        ).click()
 
     # Проверьте (assert), что в окне отобразится результат 15 через 45 секунд.
     result_locator = (By.CSS_SELECTOR, "#calculator div.screen")
@@ -29,6 +33,7 @@ def test_calculator():
         EC.text_to_be_present_in_element(result_locator, "15")
     )
     result_text = driver.find_element(*result_locator).text
-    assert result_text == "15", f"Ожидался результат 15, но получен {result_text}"
+    assert result_text == "15", \
+        f"Ожидался результат 15, но получен {result_text}"
 
     driver.quit()
