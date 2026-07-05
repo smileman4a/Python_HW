@@ -13,22 +13,22 @@ class LoginPage:
         self.url = url
         self.wait = WebDriverWait(driver, 10)
 
-    def openLoginPage(self):
+    def open_login_page(self):
         self.driver.get(self.url)
 
-    def usernameInput(self, username):
+    def username_input(self, username):
         self.wait.until(
             EC.presence_of_element_located(self.LOGIN_INPUT)
         ).send_keys(username)
 
-    def pwdInput(self, pwd):
+    def pwd_input(self, pwd):
         self.wait.until(
             EC.presence_of_element_located(self.PWD_INPUT)
         ).send_keys(pwd)
 
-    def loginClick(self):
+    def login_click(self):
         self.wait.until(
-            EC.presence_of_element_located(self.LOGIN_BUTTON)
+            EC.element_to_be_clickable(self.LOGIN_BUTTON)
         ).click()
 
 
@@ -41,21 +41,20 @@ class MainPage:
     def __init__(self, driver):
         self.wait = WebDriverWait(driver, 10)
 
-    def addToCart(self, good):
-        self.wait.until(EC.presence_of_element_located(good)).click()
+    def add_to_cart(self, good):
+        self.wait.until(EC.element_to_be_clickable(good)).click()
 
-    def cartClick(self):
-        self.wait.until(EC.presence_of_element_located(self.CART)).click()
+    def cart_click(self):
+        self.wait.until(EC.element_to_be_clickable(self.CART)).click()
 
 
 class CartPage:
-    GOODS = (By.CLASS_NAME, "inventory_item_name")
     CHECKOUT_BUTTON = (By.CSS_SELECTOR, "[data-test='checkout']")
 
     def __init__(self, driver):
         self.wait = WebDriverWait(driver, 10)
 
-    def checkoutClick(self):
+    def checkout_click(self):
         self.wait.until(
             EC.element_to_be_clickable(self.CHECKOUT_BUTTON)
         ).click()
@@ -71,7 +70,7 @@ class OrderPage:
     def __init__(self, driver):
         self.wait = WebDriverWait(driver, 10)
 
-    def fillingForm(self, name, surname, zip_code):
+    def filling_form(self, name, surname, zip_code):
         self.wait.until(
             EC.presence_of_element_located(self.FIRST_NAME_INPUT)
         ).send_keys(name)
@@ -82,12 +81,12 @@ class OrderPage:
             EC.presence_of_element_located(self.ZIP_INPUT)
         ).send_keys(zip_code)
 
-    def continueClick(self):
+    def continue_click(self):
         self.wait.until(
             EC.element_to_be_clickable(self.CONTINUE_BUTTON)
         ).click()
 
-    def checkTotal(self):
+    def check_total(self):
         total_cost = self.wait.until(
             EC.visibility_of_element_located(self.TOTAL_COST)
         ).text

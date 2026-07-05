@@ -20,14 +20,14 @@ def test_calc(setup_page):
     page = CalcPage(driver, url)
 
     # Открыть страницу калькулятора.
-    page.openCalcPage()
+    page.open_calc_page()
 
     # Ввести значение 45 в поле задержки (локатор #delay).
-    page.delayInput(45)
+    page.delay_input(45)
 
     # Нажать кнопки: 7, +, 8, =.
     for button in '7+8=':
-        page.calcInput(button)
+        page.calc_input(button)
 
     # Проверить (assert), что в окне отобразится результат 15 через 45 секунд.
     WebDriverWait(driver, 46).until(

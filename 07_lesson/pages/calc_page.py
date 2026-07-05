@@ -4,7 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class CalcPage:
-    DELAY_INPUT = (By.ID, "delay")  # поле ввода задержки
+    DELAY_INPUT_FIELD = (By.ID, "delay")  # поле ввода задержки
 
     BUTTONS = {}  # кнопки на калькуляторе
     for symb in "789+456-123÷0.=xC":
@@ -18,17 +18,17 @@ class CalcPage:
         self.url = url
         self.wait = WebDriverWait(driver, 10)
 
-    def openCalcPage(self):
+    def open_calc_page(self):
         self.driver.get(self.url)
 
-    def delayInput(self, delay):
+    def delay_input(self, delay):
         delay_field = self.wait.until(
-            EC.presence_of_element_located(self.DELAY_INPUT)
+            EC.presence_of_element_located(self.DELAY_INPUT_FIELD)
             )
         delay_field.clear()
         delay_field.send_keys(delay)
 
-    def calcInput(self, button):
+    def calc_input(self, button):
         self.wait.until(
-            EC.presence_of_element_located(self.BUTTONS[button])
+            EC.element_to_be_clickable(self.BUTTONS[button])
             ).click()
